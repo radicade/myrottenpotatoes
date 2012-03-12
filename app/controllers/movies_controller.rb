@@ -7,7 +7,14 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    if(params[:id] == "title_header")
+       @movies = Movie.all.sort_by{|x| x.title}
+    elsif(params[:id] == "release_date_header")
+       @movies = Movie.all.sort_by{|x| x.release_date}
+    else
+       @movies = Movie.all
+    end
+    @hilite_status = params[:id]
   end
 
   def new
