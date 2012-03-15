@@ -11,13 +11,14 @@ module MoviesHelper
     end
   end
   def check_rating(rating)
-    p "check_rating(", rating, @checked_ratings
+#    p "check_rating(", rating, @checked_ratings
     if(@checked_ratings == NIL)
-       if(@check_all == true) 
-          return true;
-       else
-          return false;
-       end
+#       if(@check_all == true) 
+#          return true;
+#       else
+#          return false;
+#       end
+        return false;
     elsif(@checked_ratings[rating] == "1")
        return true;
     else
