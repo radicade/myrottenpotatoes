@@ -15,8 +15,26 @@ class MoviesController < ApplicationController
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
 
     #p @checked_ratings = params[:ratings]
-
-
+    @need_to_redirect = false
+    p session[:id]
+    p session[:commit]
+    p session[:ratings
+]
+    if(params[:id] == NIL and session[:id] != NIL)
+       params[:id] = session[:id]
+    end
+    if(params[:commit] == NIL and session[:commit] != NIL)
+       params[:commit] = session[:commit]
+       @need_to_redirect = true
+    end
+    if(params[:ratings] == NIL and session[:ratings] != NIL)
+       params[:ratings] = session[:ratings]
+       @need_to_redirect = true
+    end
+    if(@need_to_redirect == true)
+       @need_to_redirect = false
+       redirect_to movies_path(params)
+    end
 
     if(params[:commit] == 'Refresh' or params[:id] == "title_header" or params[:id] == "release_date_header")
        @check_all = false
@@ -42,6 +60,12 @@ class MoviesController < ApplicationController
     elsif(params[:id] == "release_date_header")
        @movies = @movies.sort_by{|x| x.release_date}
     end
+
+    session[:id] = params[:id]
+    session[:commit] = params[:commit]
+    session[:ratings] = params[:ratings]
+
+
 
 
 #    if  (@check_all == true)
